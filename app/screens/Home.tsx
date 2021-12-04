@@ -6,14 +6,9 @@ import {
   ImageBackground,
 } from 'react-native';
 
-// @ts-ignore
-import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 import BackgroudService from '../BackgroundServices/BackgroundService';
 import DetectCall from '../components/DetectCall';
 import BG from '../images/homeBG.png';
-
-export const handleCall = () =>
-  RNImmediatePhoneCall.immediatePhoneCall('60261204');
 
 const Home = () => {
   const appState = useRef(AppState.currentState);

@@ -11,13 +11,18 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
+import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 
 //Import Call Detector
 import CallDetectorManager from 'react-native-call-detection';
-import {handleCall} from '../screens/Home';
 import Button from './common/Button';
+import {useAppContext} from '../context/AppContext';
+const handleCall = (number: string) =>
+  RNImmediatePhoneCall.immediatePhoneCall(number);
 
 const DetectCall = () => {
+  const {redirectPhoneNumber} = useAppContext();
+
   //to keep callDetector reference
   let callDetector: any;
 
@@ -65,7 +70,7 @@ const DetectCall = () => {
           } else if (event === 'Missed') {
             // Do something call got missed
             // This clause will only be executed for Android
-            handleCall();
+            handleCall(redirectPhoneNumber);
           }
         },
         true, // To detect incoming calls [ANDROID]
@@ -109,7 +114,7 @@ const DetectCall = () => {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={handleCall}
+          onPress={() => handleCall(redirectPhoneNumber)}
           style={styles.fabStyle}>
           <Image
             source={require('../images/phone-call.png')}

@@ -7,31 +7,32 @@ import {Image} from 'react-native';
 import Home from './screens/Home';
 import Settings from './screens/Settings';
 import Info from './screens/Info';
+import AppProvider from './context/AppContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const App = () => {
-  return (
+const App = () => (
+  <AppProvider>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             switch (route.name) {
-              case 'Info':
+              case 'Home':
                 return (
                   <Image
-                    source={require('./images/navigation/info.png')}
+                    source={require('./images/navigation/home.png')}
                     style={[
                       {width: 24, height: 24},
                       focused && {tintColor: 'dodgerblue'},
                     ]}
                   />
                 );
-              case 'Home':
+              case 'Info':
                 return (
                   <Image
-                    source={require('./images/navigation/home.png')}
+                    source={require('./images/navigation/info.png')}
                     style={[
                       {width: 24, height: 24},
                       focused && {tintColor: 'dodgerblue'},
@@ -56,13 +57,13 @@ const App = () => {
           tabBarInactiveTintColor: 'gray',
         })}>
         <Tab.Screen
-          name="Info"
-          component={Info}
+          name="Home"
+          component={Home}
           options={{headerShown: false}}
         />
         <Tab.Screen
-          name="Home"
-          component={Home}
+          name="Info"
+          component={Info}
           options={{headerShown: false}}
         />
         <Tab.Screen
@@ -72,7 +73,7 @@ const App = () => {
         />
       </Tab.Navigator>
     </NavigationContainer>
-  );
-};
+  </AppProvider>
+);
 
 export default App;
