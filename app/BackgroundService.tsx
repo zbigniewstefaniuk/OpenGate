@@ -27,7 +27,7 @@ class BService {
       const startListener = () => {
         // eslint-disable-next-line no-new
         new CallDetectorManager(
-          (event: string, number: string) => {
+          async (event: string, number: string) => {
             console.log(
               'Background event -> ',
               event + (number ? ' - ' + number : ''),
@@ -63,9 +63,10 @@ class BService {
               // Do something call got missed
               // This clause will only be executed for Android
 
-              BackgroundService.updateNotification({taskDesc: 'Gate opened'}),
-                RNImmediatePhoneCall.immediatePhoneCall('60261204');
-              resolve(handleCall());
+              BackgroundService.updateNotification({taskDesc: 'Gate opened'});
+              RNImmediatePhoneCall.immediatePhoneCall('60261204');
+              console.log(handleCall);
+              await handleCall();
               console.log('background call missed');
               return 'Missed';
             }
