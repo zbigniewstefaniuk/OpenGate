@@ -1,55 +1,78 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {SafeAreaView, Button, StyleSheet, AppState} from 'react-native';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-// @ts-ignore
-import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
-import BackgroudService from './BackgroundService';
+import {Image} from 'react-native';
+import Home from './screens/Home';
+import Settings from './screens/Settings';
+import Info from './screens/Info';
 
-import DetectCall from './DetectCall';
-export const handleCall = () =>
-  RNImmediatePhoneCall.immediatePhoneCall('60261204');
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const appState = useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = useState<string>(
-    appState.current,
-  );
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        BackgroudService.Stop();
-        console.log('App has come to the foreground!');
-      }
-
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
-      console.log('AppState', appState.current);
-    });
-    BackgroudService.Start();
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  console.log(appStateVisible);
-
   return (
-    <SafeAreaView style={styles.root}>
-      <Button onPress={handleCall} title="Call gate" />
-      <DetectCall />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            switch (route.name) {
+              case 'Info':
+                return (
+                  <Image
+                    source={require('./images/navigation/info.png')}
+                    style={[
+                      {width: 24, height: 24},
+                      focused && {tintColor: 'dodgerblue'},
+                    ]}
+                  />
+                );
+              case 'Home':
+                return (
+                  <Image
+                    source={require('./images/navigation/home.png')}
+                    style={[
+                      {width: 24, height: 24},
+                      focused && {tintColor: 'dodgerblue'},
+                    ]}
+                  />
+                );
+              case 'Ustawienia':
+                return (
+                  <Image
+                    source={require('./images/navigation/setting.png')}
+                    style={[
+                      {width: 24, height: 24},
+                      focused && {tintColor: 'dodgerblue'},
+                    ]}
+                  />
+                );
+              default:
+                return null;
+            }
+          },
+          tabBarActiveTintColor: 'dodgerblue',
+          tabBarInactiveTintColor: 'gray',
+        })}>
+        <Tab.Screen
+          name="Info"
+          component={Info}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="Ustawienia"
+          component={Settings}
+          options={{headerShown: false}}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
 
 export default App;

@@ -2,6 +2,7 @@ package com.opengate;
 
 import com.facebook.react.ReactActivity;
 import com.github.wumke.RNImmediatePhoneCall.RNImmediatePhoneCallPackage; 
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -19,4 +20,9 @@ public class MainActivity extends ReactActivity {
       RNImmediatePhoneCallPackage.onRequestPermissionsResult(requestCode, permissions, grantResults); // very important event callback
       super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }  
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
+}
 }

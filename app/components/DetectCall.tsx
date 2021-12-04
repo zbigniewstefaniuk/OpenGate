@@ -7,7 +7,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Linking,
   FlatList,
   SafeAreaView,
   Image,
@@ -15,7 +14,8 @@ import {
 
 //Import Call Detector
 import CallDetectorManager from 'react-native-call-detection';
-import {handleCall} from './App';
+import {handleCall} from '../screens/Home';
+import Button from './common/Button';
 
 const DetectCall = () => {
   //to keep callDetector reference
@@ -85,18 +85,6 @@ const DetectCall = () => {
     setIsStart(!isStart);
   };
 
-  const listSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 0.5,
-          width: '100%',
-          backgroundColor: '#ebebeb',
-        }}
-      />
-    );
-  };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
@@ -106,27 +94,25 @@ const DetectCall = () => {
         <FlatList
           style={{flex: 1}}
           data={flatListItems}
-          ItemSeparatorComponent={listSeparator}
           renderItem={({item}) => (
-            <View style={{flex: 1}}>
+            <View style={styles.phoneLog}>
               <Text style={styles.callLogs}>{JSON.stringify(item)}</Text>
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}
         />
-        <TouchableOpacity style={styles.button} onPress={startStopListener}>
-          <Text style={styles.buttonText}>
-            {isStart ? 'Stop Listner' : 'Start Listener'}
-          </Text>
-        </TouchableOpacity>
+        <Button
+          style={styles.button}
+          onPress={startStopListener}
+          title={isStart ? 'Włącz Przkierowanie' : 'Wyłącz Przkierowanie'}
+        />
+
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={handleCall}
           style={styles.fabStyle}>
           <Image
-            source={{
-              uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_phone.png',
-            }}
+            source={require('../images/phone-call.png')}
             style={styles.fabImageStyle}
           />
         </TouchableOpacity>
@@ -140,22 +126,34 @@ export default DetectCall;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'transparent',
   },
   header: {
-    backgroundColor: '#ff8c21',
+    backgroundColor: '#fff',
     padding: 10,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 9,
+    },
+    shadowOpacity: 0.48,
+    shadowRadius: 11.95,
+
+    elevation: 18,
   },
   headerTextLarge: {
     textAlign: 'center',
     fontSize: 20,
-    color: 'white',
+    color: '#1E90FF',
+    fontWeight: 'bold',
+    letterSpacing: 1,
   },
   headerText: {
     marginTop: 5,
     textAlign: 'center',
     fontSize: 18,
-    color: 'white',
+    color: '#1E90FF',
   },
   button: {
     alignItems: 'center',
@@ -170,10 +168,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
   },
+  phoneLog: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    marginVertical: 5,
+    borderRadius: 8,
+    width: '95%',
+    alignSelf: 'center',
+  },
   callLogs: {
     padding: 16,
     fontSize: 16,
-    color: '#333333',
+    color: 'dodgerblue',
   },
   fabStyle: {
     position: 'absolute',
@@ -183,8 +188,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     right: 30,
-    bottom: 30,
-    backgroundColor: 'yellow',
+    bottom: 90,
+    backgroundColor: 'white',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 9,
+    },
+    shadowOpacity: 0.48,
+    shadowRadius: 11.95,
+
+    elevation: 10,
   },
   fabImageStyle: {
     resizeMode: 'contain',

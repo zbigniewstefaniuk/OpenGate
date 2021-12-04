@@ -1,7 +1,7 @@
 import BackgroundService from 'react-native-background-actions';
 import CallDetectorManager from 'react-native-call-detection';
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
-import {handleCall} from './App';
+import {handleCall} from '../screens/Home';
 
 const sleep = time => new Promise(resolve => setTimeout(() => resolve(), time));
 
