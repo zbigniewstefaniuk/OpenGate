@@ -12,13 +12,17 @@ import {
   Image,
 } from 'react-native';
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
+import KeepAwake from 'react-native-keep-awake';
 
 //Import Call Detector
 import CallDetectorManager from 'react-native-call-detection';
 import Button from './common/Button';
 import {useAppContext} from '../context/AppContext';
+
 const handleCall = (number: string) =>
   RNImmediatePhoneCall.immediatePhoneCall(number);
+
+// TODO FIXME user after chainging settings have to restart facility
 
 const DetectCall = () => {
   const {
@@ -76,10 +80,6 @@ const DetectCall = () => {
             // Do something call got missed
             // This clause will only be executed for Android
             isReCallAfterMissedCall && handleCall(redirectPhoneNumber);
-            console.log(
-              'isReCallAfterMissedCall :>> ',
-              isReCallAfterMissedCall,
-            );
           }
         },
         true, // To detect incoming calls [ANDROID]
@@ -99,7 +99,11 @@ const DetectCall = () => {
     setIsStart(!isStart);
   };
 
-  console.log('isStart :>> ', isStart);
+  React.useEffect(() => {
+    // this is for app to stay awake and dont put in sleep mode
+    isStart ? KeepAwake.activate() : KeepAwake.deactivate();
+  }, [isStart]);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>

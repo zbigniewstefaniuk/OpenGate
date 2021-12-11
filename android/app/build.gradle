@@ -198,6 +198,7 @@ dependencies {
     implementation project(':react-native-immediate-phone-call')
 
     implementation project(':react-native-background-actions')
+    compile project(':react-native-keep-awake')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'

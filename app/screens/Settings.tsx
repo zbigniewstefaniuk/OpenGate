@@ -12,7 +12,7 @@ import Button from '../components/common/Button';
 import {useAppContext} from '../context/AppContext';
 import homeBG from '../images/homeBG.png';
 
-// TODO add local storage for settings and selecting switch options to calls
+// FIXME add local storage for settings and selecting switch options to calls
 
 const Settings = ({navigation}) => {
   const {
@@ -49,8 +49,6 @@ const Settings = ({navigation}) => {
     setIsReCallAfterMissedCall(missedCallEnabled);
   }, [missedCallEnabled]);
 
-  console.log(number);
-  console.log('redirectPhoneNumber', redirectPhoneNumber);
   return (
     <ImageBackground style={styles.backgroundImage} source={homeBG}>
       <SafeAreaView>
