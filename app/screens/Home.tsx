@@ -6,8 +6,9 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import BackgroudService from '../BackgroundServices/BackgroundService';
+// import BackgroudService from '../BackgroundServices/BackgroundService';
 import DetectCall from '../components/DetectCall';
+// @ts-ignore
 import homeBG from '../images/homeBG.png';
 
 const Home = () => {
@@ -22,7 +23,7 @@ const Home = () => {
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active'
       ) {
-        BackgroudService.Stop();
+        // BackgroudService.Stop();
         console.log('App has come to the foreground!');
       }
 
@@ -30,7 +31,7 @@ const Home = () => {
       setAppStateVisible(appState.current);
       console.log('AppState', appState.current);
     });
-    BackgroudService.Start();
+    // BackgroudService.Start();
 
     return () => {
       subscription.remove();

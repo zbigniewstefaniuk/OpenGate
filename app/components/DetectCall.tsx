@@ -21,7 +21,11 @@ const handleCall = (number: string) =>
   RNImmediatePhoneCall.immediatePhoneCall(number);
 
 const DetectCall = () => {
-  const {redirectPhoneNumber} = useAppContext();
+  const {
+    redirectPhoneNumber,
+    isReCallAfterMissedCall,
+    isReCallAfterAnsweredCall,
+  } = useAppContext();
 
   //to keep callDetector reference
   let callDetector: any;
@@ -31,7 +35,7 @@ const DetectCall = () => {
   const [flatListItems, setFlatListItems] = useState([]);
 
   const startStopListener = () => {
-    if (isStart) {
+    if (!isStart) {
       console.log('Stop');
       callDetector && callDetector.dispose();
     } else {
@@ -67,10 +71,15 @@ const DetectCall = () => {
             // active, or on hold,
             // and no calls are ringing or waiting.
             // This clause will only be executed for Android
+            isReCallAfterAnsweredCall && handleCall(redirectPhoneNumber);
           } else if (event === 'Missed') {
             // Do something call got missed
             // This clause will only be executed for Android
-            handleCall(redirectPhoneNumber);
+            isReCallAfterMissedCall && handleCall(redirectPhoneNumber);
+            console.log(
+              'isReCallAfterMissedCall :>> ',
+              isReCallAfterMissedCall,
+            );
           }
         },
         true, // To detect incoming calls [ANDROID]
@@ -90,6 +99,7 @@ const DetectCall = () => {
     setIsStart(!isStart);
   };
 
+  console.log('isStart :>> ', isStart);
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
@@ -109,7 +119,7 @@ const DetectCall = () => {
         <Button
           style={styles.button}
           onPress={startStopListener}
-          title={isStart ? 'Włącz Przkierowanie' : 'Wyłącz Przkierowanie'}
+          title={isStart ? 'Wyłącz ReCall' : 'Włącz ReCall'}
         />
 
         <TouchableOpacity

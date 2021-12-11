@@ -95,5 +95,5 @@ class BService {
     BackgroundService.stop();
   }
 }
-const BackgroudService = new BService();
-export default BackgroudService;
+// const BackgroudService = new BService();
+// export default BackgroudService;

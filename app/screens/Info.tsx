@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
+// @ts-ignore
 import BG from '../images/homeBG.png';
 
 const Info = () => {
@@ -7,6 +8,11 @@ const Info = () => {
     <ImageBackground style={styles.backgroundImage} source={BG}>
       <View>
         <Text>Informacja</Text>
+        <Text>SUPER WAŻNE</Text>
+        <Text>
+          Po zmianie w ustawieniach trzeba wyłączyć i włączyć ReCall inaczej
+          aplikacje nie odświeży sobie tego
+        </Text>
       </View>
     </ImageBackground>
   );
