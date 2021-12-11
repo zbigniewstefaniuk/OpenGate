@@ -8,7 +8,7 @@ import {
 
 import BackgroudService from '../BackgroundServices/BackgroundService';
 import DetectCall from '../components/DetectCall';
-import BG from '../images/homeBG.png';
+import homeBG from '../images/homeBG.png';
 
 const Home = () => {
   const appState = useRef(AppState.currentState);
@@ -41,7 +41,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.root}>
-      <ImageBackground style={styles.backgroundImage} source={BG}>
+      <ImageBackground style={styles.backgroundImage} source={homeBG}>
         <DetectCall />
       </ImageBackground>
     </SafeAreaView>
