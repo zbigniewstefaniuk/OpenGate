@@ -8,11 +8,14 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import {Appearance} from 'react-native';
 import Button from '../components/common/Button';
 import {useAppContext} from '../context/AppContext';
 import homeBG from '../images/homeBG.png';
 
-// FIXME add local storage for settings and selecting switch options to calls
+// TODO FIXME add local storage for settings and selecting switch options to calls
+
+const colorScheme = Appearance.getColorScheme();
 
 const Settings = ({navigation}) => {
   const {
@@ -140,6 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     borderColor: 'transparent',
+    color: '#000',
 
     shadowColor: '#000',
     shadowOffset: {
@@ -159,6 +163,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     fontWeight: 'bold',
     fontSize: 15,
+    color: '#000',
   },
 
   // Switches
@@ -169,6 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 15,
+    color: '#000',
   },
   switchContainer: {
     display: 'flex',
@@ -186,6 +192,7 @@ const styles = StyleSheet.create({
 
   switchTitle: {
     fontWeight: '600',
+    color: '#000',
   },
 });
 
